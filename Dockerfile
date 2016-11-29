@@ -68,7 +68,6 @@ RUN set -x \
  && su qbittorrent -s /bin/sh -c 'qbittorrent-nox -v'
 
 # Default configuration file.
-COPY qBittorrent.conf /default/qBittorrent.conf
 COPY entrypoint.sh /
 
 VOLUME ["/config", "/torrents", "/downloads"]
