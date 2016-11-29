@@ -1,4 +1,6 @@
-FROM alpine:3.4
+FROM babim/alpinebase
+
+ENV DUMBINIT 1.2.0
 
 # Install required packages
 RUN apk add --no-cache \
@@ -21,7 +23,7 @@ RUN set -x \
     \
     # Install dumb-init
     # https://github.com/Yelp/dumb-init
- && curl -Lo /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.1.3/dumb-init_1.1.3_amd64 \
+ && curl -Lo /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v$DUMBINIT/dumb-init_$DUMBINIT_amd64  /
  && chmod +x /usr/local/bin/dumb-init \
     \
     # Build lib rasterbar from source code (required by qBittorrent)
@@ -34,12 +36,12 @@ RUN set -x \
  && make install \
     \
     # Build qBittorrent from source code
- && QBITTORRENT_URL=$(curl -L http://www.qbittorrent.org/download.php | grep -Eo 'https?://[^"]*qbittorrent[^"]*\.tar\.xz[^"]*' | head -n1) \
+ && QBITTORRENT_URL=$(curl -L  | grep -Eo 'https?://[^"]*qbittorrent[^"]*\.tar\.xz[^"]*' | head -n1) \
  && curl -L $QBITTORRENT_URL | tar xJC /tmp \
  && cd /tmp/qbittorrent* \
  && ln -s /usr/bin/lrelease /usr/bin/lrelease-qt4 \
  && PKG_CONFIG_PATH=/usr/local/lib/pkgconfig ./configure --disable-gui \
-    # Patch: Disable stack trace because it requires libexecline-dev which isn't available on Alpine 3.4.
+    # Patch: Disable stack trace because it requires libexeclihttp://www.qbittorrent.org/download.phpne-dev which isn't available on Alpine 3.4.
  && cd src/app \
  && patch -i /main.patch \
  && rm /main.patch \
