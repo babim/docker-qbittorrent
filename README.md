@@ -1,4 +1,4 @@
-thanks wernight/
+thanks wernight
 
 
 What is qBittorrent?
