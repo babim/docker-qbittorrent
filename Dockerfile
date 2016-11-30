@@ -1,7 +1,5 @@
 FROM babim/alpinebase
 
-ENV DUMBINIT 1.2.0
-
 # Install required packages
 RUN apk add --no-cache \
       boost-system \
@@ -23,7 +21,7 @@ RUN set -x \
     \
     # Install dumb-init
     # https://github.com/Yelp/dumb-init
- && curl -Lo /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v$DUMBINIT/dumb-init_$DUMBINIT_amd64  /
+ && curl -Lo /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64  /
  && chmod +x /usr/local/bin/dumb-init \
     \
     # Build lib rasterbar from source code (required by qBittorrent)
